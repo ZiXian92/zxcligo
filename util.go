@@ -54,6 +54,11 @@ func newContext(cmdStrings []string) (ctx *Context, err error) {
 		}
 	}
 
+	// Handle edge case where we have an unclosed option.
+	if !isNewFlag {
+		ctx.Options[optName] = "true"
+	}
+
 	// Set command and arguments
 	if numArgs := len(args); numArgs > 0 {
 		ctx.Cmd = args[0]
